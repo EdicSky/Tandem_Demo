@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Product detail</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+
+        .S-nav-horizontal{
+            background: white;
+            padding: 0;
+            
+        }
+        .S-nav-horizontal ul li{
+            border-bottom: 2px solid transparent ;
+            margin-right: 10px;
+        }
+        .S-nav-horizontal ul li:hover{
+            border-bottom: 2px solid black ;
+            margin-right: 10px;
+        }
+        .S-nav-horizontal a{
+            color: black;
+        }
+        /* #S-nav-vertical{
+            background: #FCFAF2;
+            height: 100vh;
+            display: none;
+        }
+        #S-nav-vertical a{
+            color: black;
+        } */
+        
+        form img{
+            margin: 0 5px;
+            width: 25px;
+        }
+
+
+        .wrapper{
+            max-width: 800px;
+            height: 400px;
+            background: black;
+            /* image超過框的部分則隱藏 */
+            overflow: hidden;
+
+            
+        }
+
+        .slider-img{
+            width: 3200px;
+            left: 0;
+            transition: .5s;
+        }
+
+        .slider-img li{
+            height: 400px;
+            /* 以下可加可不加 */
+            width: 0%;
+            flex-grow: 1;
+
+            
+           
+        }
+        .slider-img li img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+            
+        }
+        .slider-dots{
+            width: 100%;
+            bottom:15px;
+        }
+
+        .slider-dots li{
+            width: 20px;
+            height: 8px;
+            margin: 5px;
+            border: 1px solid white;
+        }
+        
+        .arrow{
+            font-size: 25px;
+            width: 50px;
+            top: 0px;
+            bottom: 0px;
+            cursor: pointer;
+        }
+        .arrow .fas{
+            color: white;
+        }
+        .arrow-left{
+            left:0px;
+        }
+        .arrow-right{
+            right:0px
+        }
+
+        #S-show-filter-btn{
+            margin-right: 10px;
+        }
+        #S-show-filter-btn img{
+            width: 20px;
+        }
+        .S-product-content{
+            display: grid;
+
+        }
+        @media screen and (min-width:576px){
+            .S-product-content{
+            grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .S-addtoCart-btn,.S-addtoFollowing-btn{
+            background: #2b76d9;
+            width: 180px;
+            border: none;
+            margin: 10px;
+            padding: 5px;
+            color: white;
+            
+        }
+        .S-addtoCart-btn img,.S-addtoFollowing-btn img{
+            width: 20px;
+        }
+        .S-share-btn img{
+            width: 25px;
+            margin:10px;
+        }
+        .S-product-price{
+            font-size: x-large;
+        }
+        
+        .S-user-avator{
+            border: 1px solid black;
+            /* width: 100px;
+            height: 100px; */
+            padding: 5px;
+            /* flex-grow: 1; */
+            
+        }
+        .S-user-comment{
+            /* display: flex;
+            flex-wrap: wrap; */
+            
+        }
+
+        .S-user-comment h3{
+           /* width: 200px; */
+            
+        }
+       
+        .S-user-avator img{
+            object-fit: contain;
+            /* width: 0; */
+            padding: 10px;
+            /* object-position: 0 20px; */
+            
+
+        }
+
+        .S-filter{
+            
+            left: 0;
+            top: 200px;
+            width: 0px;
+            height: 100%;
+            background: lightgray;
+            z-index: 2;
+            
+            transition: .5s;
+            overflow: hidden;
+            
+            
+
+        }
+        .S-filter .S-filter-title{
+            width:100%;
+            height: 35px;
+            /* border-bottom: 2px solid black; */
+            padding: 5px 20px;
+            margin: 0 0 20px 0;
+            top: 0;
+            left: 0px;
+            background: gray;
+        
+        }
+        .S-filter .S-filter-close{
+            top: 0;
+            right: 0px;
+            height: 35px;
+            padding: 5px 0px;
+            margin: 0 0 20px 0;
+            /* background: blue; */
+        }
+        .S-filter .S-filter-content li{
+            list-style: none;
+        }
+
+        .S-filter.S-filter-visible{
+           
+            width: 300px;
+        }
+        
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+          
+        <a class="navbarbrand" href="#">Tandem</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="">Shop</a>
+                </li>
+            </ul>
+        </div>
+     
+    </nav>
+    <!-- 分類navbar ------------------------------------------------- -->
+    <nav class="navbar navbar-expand-lg S-nav-horizontal" >
+        <!-- <a id="S-show-filter-btn">
+            <i class="fas fa-filter" ></i>
+        </a> -->
+      
+        <div class="container">
+        <ul class="navbar-nav d-flex justify-content-center" >
+            <li class="nav-item active"><a href="" class="nav-link">All</a></li>
+            <li class="nav-item"><a href="" class="nav-link">休閒</a></li>
+            <li class="nav-item"><a href="" class="nav-link">動作</a></li>
+            <li class="nav-item"><a href="" class="nav-link">血腥</a></li>
+            <li class="nav-item"><a href="" class="nav-link">運動</a></li>
+            
+            
+        </ul>
+        <form action="" class="form-inline py-2 d-flex justify-content-center">
+            <!-- <input type="text" class="form-control mr-1"> -->
+          
+            <!-- <i class="fas fa-search"></i> -->
+            <span>
+                <!-- <svg class="S-search-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="10">
+                <path fill="none" d="M0 0h43.856v43.753H0z"></path>
+                <circle cx="40.5" cy="34" r="8" fill="none" stroke="#000" stroke-width="2" transform="translate(-22.5 -15.624)"></circle>
+                <path d="M46.2 39.7l9.3 9.3" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" transform="translate(-22.5 -15.624)"></path>
+                </svg> -->
+                <img src="./image/Icon feather-search.svg" alt="">
+            </span> 
+            <span>
+                <!-- <i class="fas fa-shopping-cart"></i> -->
+                <img src="./image/Icon feather-shopping-cart.svg" alt="">
+            </span>
+            <span>
+                <img src="./image/Icon ionic-md-heart-empty.svg" alt="">
+            </span>
+            
+        </form>
+    </div>
+  </nav>
+
+  <!-- 輪播大圖 -->
+  
+    <div class="wrapper mx-auto position-relative">
+
+        <ul class="list-unstyled d-flex slider-img position-absolute" id="sliderImg">
+
+            <!-- <li><img src="../jQuery/example/images/slide1.jpeg" alt=""></li>
+            <li><img src="../jQuery/example/images/slide2.jpeg" alt=""></li>
+            <li><img src="../jQuery/example/images/slide3.jpeg" alt=""></li>
+            <li><img src="../jQuery/example/images/slide4.jpeg" alt=""></li> -->
+        </ul>
+
+        <ul class="list-unstyled position-absolute slider-dots d-flex justify-content-center" id="sliderDots">
+        <!-- <li></li>
+        <li></li>
+        <li></li>
+        <li></li> -->
+        </ul>
+
+        <a class="position-absolute arrow d-flex justify-content-center align-items-center arrow-left" role="button" id="goPrev">
+            <i class="fas fa-arrow-circle-left"></i>
+        </a>
+        <a class="position-absolute arrow d-flex justify-content-center align-items-center arrow-right" role="button" id="goNext">
+            <i class="fas fa-arrow-circle-right"></i>
+        </a>
+
+    </div>
+    <div class="container">
+            <!-- 顯示側邊欄icon/目前位置 -->
+        <div class="S-current-page d-flex justify-content-start">
+            <a id="S-show-filter-btn">
+                <img src="./image/open side column icon.svg" alt="">
+                <!-- <i class="fas fa-filter" ></i> -->
+            </a>
+            <p>
+                /
+                <a href="">Home</a>
+                <a href="">/商品列表</a>
+                /商品名稱
+            </p>
+        </div>
+        <div class="S-product-title">
+            <h2>商品名稱</h2>
+        </div>
+        <div class="S-product-content">
+
+            <div class="S-intro p-2">
+                商品介紹:
+                <p>
+                    Steam遊戲平台是美國電子遊戲商維爾福於2003年9月12日推出的數位發行平台，提供數位版權管理、多人遊戲、串流媒體和社群網路服務等功能。藉助Steam，用戶能安裝並自動更新遊戲，也可以使用包括好友列表和組在內的社區功能，還能使用雲端儲存、遊戲內語音和聊天功能。 
+                </p>
+            </div>
+            <div class="S-product-other p-4">
+                <button href=""  class="S-addtoCart-btn">
+                    <img src="./image/Icon feather-shopping-cart.svg" alt="">
+                    加入購物車
+                </button>
+                <button href=""  class="S-addtoFollowing-btn">
+                    <img src="./image/Icon ionic-md-heart-empty.svg" alt="">
+                    加入追蹤
+                </button>
+                <div class="S-share-btn">
+                    Share 
+                   
+                    <img src="./image/Icon awesome-facebook.svg" alt="">
+                    <img src="./image/Icon awesome-twitter.svg" alt="">
+                    
+                </div>
+                <div class="S-product-price">
+                    NT$<span>999</span>
+                </div>
+                <div class="S-product-detail">
+                    <h5>發行商</h5>
+                    <h5>遊戲類型</h5>
+                    <h5>推出日期</h5>
+                </div>
+                <div class="S-user-comment">
+                    <h3>使用者評論</h3>
+                    <div class="d-flex">
+                        <div class="S-user-avator">
+                        <img src="./image/Icon material-people.svg" alt="">
+                        </div>
+                        <div class="S-user-comment-content">
+                            Great game!
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+             <!-- 篩選側邊欄 ------------------------------------------------>
+             
+        </div>
+        <div class="S-filter position-absolute">
+                        <div class="d-flex">
+                        <div class="S-filter-title position-relative">
+                                <h5 class="text-nowrap">篩選</h5> 
+                        
+                            </div>
+                            <button class="S-filter-close position-relative">
+                                <h5 class="text-nowrap">Close</h5> 
+                            </button> 
+                        </div>
+                        
+
+                        
+                        <form action="" class="">
+                            <div class="S-filter-block p-3 text-nowrap">
+                                <h5 >條件1</h5>
+                                <div class="S-filter-content p-2">
+                                    <ul>
+                                        <li><input type="checkbox"> option1</li>
+                                        <li><input type="checkbox"> option2</li>
+                                        <li><input type="checkbox"> option3</li>
+                                        <li><input type="checkbox"> option4</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+        </div>
+    </div>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        let sliderImgFile=["./image/bigImage/1_MONSTER HUNTER_ WORLD_0.jpg","./image/bigImage/1_MONSTER HUNTER_ WORLD_1.jpg","./image/bigImage/1_MONSTER HUNTER_ WORLD_2.jpg","./image/bigImage/1_MONSTER HUNTER_ WORLD_3.jpg","./image/bigImage/1_MONSTER HUNTER_ WORLD_4.jpg"]
+        let index=0;
+        let imgWidth = $(".wrapper").width();//抓wrapper寬度
+        let slideCount =sliderImgFile.length;//計算總共圖片數
+        $("#sliderDots li").hover(function(){
+            // console.log("hover")
+            
+            index = $(this).index();//取得element的index
+            // console.log(index)
+
+            // let imgWidth = $("#sliderImg li").width()//抓圖片寬度
+            // console.log(imgwidth)
+
+
+            // $("#sliderImg").css("left",0-index*imgWidth)//滑過去就改變slider-Img位置，每張圖片800px寬
+
+            //滑過li背景變色，其他維持透明
+            // $(this).css("background","white")
+            // .siblings().css("background","transparent")
+            goSlide();
+            
+        })
+        //first dots預設背景白色
+        $("#sliderDots li").eq(0).css("background","white")
+
+
+        $("#goPrev").click(function(){
+            index--;
+            //到最前面圖就自動跳回最後一張圖
+            if(index<0){
+                index = slideCount-1;
+            }
+
+            goSlide();
+        })
+
+        $("#goNext").click(function(){
+            index++;
+            // console.log(index);
+            // console.log("next")
+            //到最後面圖就自動跳回第一張圖
+            if (index>(slideCount-1)) {
+                index=0;
+            }
+            goSlide();
+        })
+
+        function goSlide(){
+            $("#sliderImg").css("left", 0-index*imgWidth);
+            $("#sliderDots li").eq(index).css("background","white")
+            .siblings().css("background","transparent")
+        }
+
+
+        
+            sliderImgFile.forEach(function(item){
+                console.log(item)
+                $("#sliderImg").append(`<li><img src="${item}" alt=""></li>`)
+                $("#sliderDots").append(`<li></li>`)
+            })
+
+            $(".slider-img").css("width",slideCount*imgWidth);
+            // console.log(slideCount)
+            
+            // $("#sliderImg").append()
+            
+            //切換顯示filter column
+        $("#S-show-filter-btn").click(function(){
+            $(".S-filter").toggleClass("S-filter-visible")
+        })
+
+        let S_current_page = $(".S-current-page").offset().top;//離頁面頂端距離
+        // console.log(S_filter_top)
+        //設定s-filter位置
+        $(".S-filter").css({
+            "top":S_filter_top,
+            "left":"200px"
+        })
+    </script>
+  </body>
+</html>
