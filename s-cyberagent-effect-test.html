@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .box{
+            width: 500px;
+            height: 500px;
+            background-image: url('/image/bigImage/1_MONSTER HUNTER_ WORLD_0.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            filter: grayscale(50%);
+            transition: .5s;
+            
+            flex-wrap: wrap;
+            
+ 
+
+        }
+        .box:hover{
+            /* background-image: url('/image/bigImage/1_MONSTER HUNTER_ WORLD_2.jpg'); */
+        }
+        .sbox{
+            /* width: 200px; */
+            height: 50%;
+            /* background: white; */
+            /* transition:.5s; */
+            flex: 1 1 33.33%;
+            /* border:1px solid green; */
+        }
+
+       
+        .sbox-s{
+            width: 100%;
+            height: 100%;
+            background: white;
+            transition:.5s;
+            border:2px solid lightgrey;
+        }
+        .sbox-s h2{
+            position: absolute;
+            top: 30%;
+            left: 30%;
+        }
+        /* .sbox1:hover,.sbox2:hover{
+            width: 80%;
+            height: 80%;
+            margin: 10%;
+            border-radius: 20px;
+            opacity: 50%;
+
+        } */
+        .box:hover .sbox-s{
+            width: 80%;
+            height: 80%;
+            margin: 10%;
+            border-radius: 20px;
+            /* opacity: 50%; */
+        }
+
+    </style>
+  </head>
+  <body>
+      <div class="box d-flex">
+        <div class="sbox">
+            <div class="sbox-s position-relative">
+                <h2>運動</h2>
+            </div>
+            
+        </div>
+        <div class="sbox">
+            <div class="sbox-s position-relative">
+                <h2>休閒</h2>
+            </div>
+            
+        </div>
+        <div class="sbox">
+            <div class="sbox-s position-relative">
+                <h2>血腥</h2>
+            </div>
+            
+        </div>
+        <div class="sbox">
+            <div class="sbox-s position-relative">
+                <h2>射擊</h2>
+            </div>
+            
+        </div>
+      </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+
+        const background_list=['/images/shopping_cart/bigImage/1_MONSTER HUNTER_ WORLD_1.jpg',
+        '/images/shopping_cart/bigImage/1_MONSTER HUNTER_ WORLD_2.jpg',
+        '/images/shopping_cart/bigImage/1_MONSTER HUNTER_ WORLD_3.jpg',
+        '/images/shopping_cart/bigImage/1_MONSTER HUNTER_ WORLD_4.jpg',
+        '/images/shopping_cart/bigImage/1_MONSTER HUNTER_ WORLD_5.jpg'];
+        console.log(background_list[0]);
+        let index = 0;
+        $('.sbox-s')
+        .mouseenter(function(){
+            $(this).css({'background':'white','opacity':'80%'})
+                .parent().siblings().find('.sbox-s').css({'background':'white','opacity':'50%'})
+           
+           //目前是第幾個sbox-s
+            index = $(this).index('.sbox-s');
+            // console.log($(this).parent().children().find('.sbox-s'))
+            // console.log('sbox-s mouseenter')
+            console.log(index);
+            $('.box').css('background-image','url("'+background_list[index]+'")');
+            
+        })
+        .mouseleave(function(){
+            $(this).css({'background':'white','opacity':'50%'})
+            $('.box').css('background-image','url(\'/image/bigImage/1_MONSTER HUNTER_ WORLD_0.jpg\')');
+        })
+
+        // $('.sbox1')
+        //     .mouseenter(function(){
+        //     $('.box').css('background-image','url("'+background_list[index]+'")');
+        // })
+        //     .mouseleave(function(){
+        //     $('.box').css('background-image','url(\'/image/bigImage/1_MONSTER HUNTER_ WORLD_0.jpg\')');
+        // })
+        // $('.sbox2')
+        //     .mouseenter(function(){
+        //     $('.box').css('background-image','url(\'/image/bigImage/1_MONSTER HUNTER_ WORLD_2.jpg\')');
+        // })
+        //     .mouseleave(function(){
+        //     $('.box').css('background-image','url(\'/image/bigImage/1_MONSTER HUNTER_ WORLD_0.jpg\')');
+        // })
+
+       
+
+        $('.box').mouseleave(function(){
+            
+            // $(this).css('opacity','100%')
+            $('.box').children().css('opacity','100%').children().css('opacity','100%');
+            console.log('mouseleave')
+        })
+
+       
+        
+    </script>
+  </body>
+</html>
